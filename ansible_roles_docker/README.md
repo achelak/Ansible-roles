@@ -37,10 +37,15 @@ On managed linux machines:
   * Environment variables for master node:
 
 MYSQL_ROOT_PASSWORD: 111
+
 MYSQL_PORT: 3306
+
 MYSQL_USER: mydb_user
+
 MYSQL_PASSWORD: mydb_pwd
+
 MYSQL_DATABASE: mydb
+
 MYSQL_LOWER_CASE_TABLE_NAMES: 0
 
 ```edit environment variables for mysql slave node in ./roles/docker_compose/files/docker-compose.yml```
@@ -48,10 +53,15 @@ MYSQL_LOWER_CASE_TABLE_NAMES: 0
 * Environment variables for master node:
 
 MYSQL_ROOT_PASSWORD: 111
+
 MYSQL_PORT: 3306
+
 MYSQL_USER: mydb_slave_user
+
 MYSQL_PASSWORD: mydb_slave_pwd
+
 MYSQL_DATABASE: mydb
+
 MYSQL_LOWER_CASE_TABLE_NAMES: 0
 
 ```edit cpu/mem default value in docker-compose file```
@@ -59,8 +69,11 @@ MYSQL_LOWER_CASE_TABLE_NAMES: 0
 * Default cpu/mem value:
 
 cpu_count: 1
+
 cpu_percent: 50
+
 mem_limit: 200m
+
 mem_reservation: 50m
 
 ```edit variables in connector bash script ./roles/docker_compose/files/connector.sh```
@@ -70,11 +83,11 @@ mem_reservation: 50m
 
 ## After VM's / nodes installation and provisioning:
 
-```check status nodes:```
+check status nodes:
 
 ```$ docker-compose top```
 
-```cheсk mysql slave replication status:```  
+cheсk mysql slave replication status: 
 
 ```$ docker exec mysql_slave sh -c "export MYSQL_PWD=111; mysql -u root -e 'SHOW SLAVE STATUS \G'"```
 ~
