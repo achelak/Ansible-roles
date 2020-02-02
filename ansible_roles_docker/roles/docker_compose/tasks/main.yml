@@ -1,0 +1,71 @@
+---
+  - name: Remove testing directory
+    become: true
+    file:
+      path: "{{ compose_dir }}"
+      state: absent
+
+  - name: Create doocker-compose dir for mysql cnf master
+    file:
+      path: "{{ compose_dir }}/master/conf"
+      state: directory
+ 
+  - name: Create doocker-compose dir for mysql cnf slave
+    file:
+      path: "{{ compose_dir }}/slave/conf"
+      state: directory
+ 
+  - name: Create data dir for mysql db master
+    file:
+      path: "{{ compose_dir }}/master/data"
+      state: directory
+      owner: "{{ ansible_user_id }}"
+      mode: '0755'
+ 
+  - name: Create data dir for mysql db slave
+    file:
+      path: "{{ compose_dir }}/slave/data"
+      state: directory
+      owner: "{{ ansible_user_id }}"
+      mode: '0755'
+ 
+  - name: Copy cfg to master folder
+    copy:
+      src: mysql.conf1.cnf
+      dest: "{{ compose_dir }}/master/conf/mysql.conf.cnf"
+ 
+  - name: Copy cfg to slave folder
+    copy:
+      src: mysql.conf2.cnf
+      dest: "{{ compose_dir }}/slave/conf/mysql.conf.cnf"
+ 
+  - name: Copy docker-compose file to work dir
+    copy:
+      src: docker-compose.yml
+      dest: "{{ compose_dir }}/docker-compose.yml"
+ 
+  - name: Copy connector.sh script to work dir
+    copy:
+      src: connector.sh
+      dest: "{{ compose_dir }}/connector.sh"
+      owner: "{{ ansible_user_id }}"
+      mode: '0711'
+ 
+  - name: Pull mysql-dbms Docker image
+    become: true
+    docker_image:
+      name: mysql:5.7
+      source: pull
+ 
+  - name: Docker-compose up node`s
+    become: true
+    docker_compose:
+       project_src: "{{ compose_dir }}" 
+       state: present
+ 
+  - name: Change the working directory to compose_dir / before executing the connector.sh
+    become: true
+    shell:
+     cmd: ./connector.sh >> log.txt
+     chdir: "{{ compose_dir }}/"
+ 

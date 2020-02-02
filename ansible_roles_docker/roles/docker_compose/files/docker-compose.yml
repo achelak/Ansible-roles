@@ -1,0 +1,44 @@
+version: '3'
+services:
+  mysql_master:
+    image: mysql:5.7
+    environment:
+       MYSQL_ROOT_PASSWORD: 111
+       MYSQL_PORT: 3306
+       MYSQL_USER: mydb_user
+       MYSQL_PASSWORD: mydb_pwd
+       MYSQL_DATABASE: mydb
+       MYSQL_LOWER_CASE_TABLE_NAMES: 0
+    container_name: "mysql_master"
+    restart: "no"
+    ports:
+      - 4406:3306
+    volumes:
+      - ./master/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./master/data:/var/lib/mysql
+    networks:
+      - overlay
+
+  mysql_slave:
+    image: mysql:5.7
+    environment:
+       MYSQL_ROOT_PASSWORD: 111
+       MYSQL_PORT: 3306
+       MYSQL_USER: mydb_slave_user
+       MYSQL_PASSWORD: mydb_slave_pwd
+       MYSQL_DATABASE: mydb
+       MYSQL_LOWER_CASE_TABLE_NAMES: 0
+    container_name: "mysql_slave"
+    restart: "no"
+    ports:
+      - 5506:3306
+    depends_on:
+      - mysql_master
+    volumes:
+      - ./slave/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./slave/data:/var/lib/mysql
+    networks:
+      - overlay
+
+networks:
+  overlay:

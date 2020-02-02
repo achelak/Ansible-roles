@@ -1,0 +1,2 @@
+compose_dir: "{{ ansible_user_dir }}/docker_compose_workdir"
+

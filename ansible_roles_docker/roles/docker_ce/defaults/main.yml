@@ -1,0 +1,4 @@
+docker_key_url: https://download.docker.com/linux/ubuntu/gpg
+docker_users:
+  - "{{ ansible_user }}"
+docker_compose_path: /usr/local/bin/docker-compose
