@@ -4,8 +4,8 @@
 
 * role docker_ce:
 
-```install docker-ce``
-`
+```install docker-ce```
+
 ```install docker-compose```
 
 ```install docker moodule for python```
