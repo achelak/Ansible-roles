@@ -2,10 +2,12 @@
 
 ## Those roles doing:
 
-* role "docker_ce":
-```- install docker-ce;```
-```- install docker-compose;```
-```- install docker moodule for python.```
+* role docker_ce:
+
+```install docker-ce```
+```install docker-compose```
+```install docker moodule for python```
+
 * role docker_compose:
 ```- run docker-compose file on managed servers;```
 ```- run connector bash script for mysql replication.```
@@ -23,8 +25,11 @@ On managed linux machines:
 ```$ git clone https://github.com/achelak/Ansible-roles.git```
 
 ```$ cd Ansible-roles/ansible_roles_docker```
+
 ```edit inventory host```
-```edit environment variables for mysql master node in ./roles/docker_compose/files/docker-compose.yml``` 
+
+```edit environment variables for mysql master node in ./roles/docker_compose/files/docker-compose.yml```
+ 
   * Environment variables for master node:
        MYSQL_ROOT_PASSWORD: 111
        MYSQL_PORT: 3306
@@ -43,7 +48,7 @@ On managed linux machines:
        MYSQL_DATABASE: mydb
        MYSQL_LOWER_CASE_TABLE_NAMES: 0
 
-``` edit cpu/mem default value in docker-compose file ```
+```edit cpu/mem default value in docker-compose file```
 
 * Default cpu/mem value:
     cpu_count: 1
@@ -56,10 +61,14 @@ On managed linux machines:
 ```$ ansible-playbook docker.yml ```
 
 
-## After VM's / nodes installation and provisioning:`
+## After VM's / nodes installation and provisioning:
+
 ```check status nodes:```
+
 ```$ docker-compose top```
+
 ```cheсk mysql slave replication status:```  
+
 ```$ docker exec mysql_slave sh -c "export MYSQL_PWD=111; mysql -u root -e 'SHOW SLAVE STATUS \G'"```
 ~
 
