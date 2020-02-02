@@ -50,7 +50,7 @@ MYSQL_LOWER_CASE_TABLE_NAMES: 0
 
 ```edit environment variables for mysql slave node in ./roles/docker_compose/files/docker-compose.yml```
 
-* Environment variables for master node:
+* Environment variables for slave node:
 
 MYSQL_ROOT_PASSWORD: 111
 
