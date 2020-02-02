@@ -1,4 +1,4 @@
-version: '3'
+version: '2.3'
 services:
   mysql_master:
     image: mysql:5.7
@@ -10,6 +10,10 @@ services:
        MYSQL_DATABASE: mydb
        MYSQL_LOWER_CASE_TABLE_NAMES: 0
     container_name: "mysql_master"
+    cpu_count: 1
+    cpu_percent: 50
+    mem_limit: 200m
+    mem_reservation: 50m
     restart: "no"
     ports:
       - 4406:3306
@@ -29,6 +33,10 @@ services:
        MYSQL_DATABASE: mydb
        MYSQL_LOWER_CASE_TABLE_NAMES: 0
     container_name: "mysql_slave"
+    cpu_count: 1
+    cpu_percent: 50
+    mem_limit: 200m
+    mem_reservation: 50m
     restart: "no"
     ports:
       - 5506:3306
